@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Makers Virtual School | Elite Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. الإعدادات الأساسية */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05020a;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 0;
+            place-items: center;
+        }
+
+        .slide-container {
+            align-items: center;
+            background-color: #0D0821; /* لون الأكاديمية البنفسجي الفخم */
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Cairo', sans-serif;
+            height: 720px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: 1280px;
+            border: 1px solid #1c0f3d;
+        }
+
+        /* زينة الخلفية بالتأثير الضوئي */
+        .slide-container::before {
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.04) 0%, transparent 45%),
+                        radial-gradient(circle at 90% 90%, rgba(160, 32, 240, 0.04) 0%, transparent 45%);
+        }
+
+        .slide-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. الخطوط والنصوص */
+        .slide-container h1,
+        .slide-container h2,
+        .slide-container h3 {
+            color: #ffffff;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .slide-container .slide-title {
+            font-size: 44px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-align: right;
+            width: 100%;
+            color: #D4AF37; /* اللون الذهبي الملكي */
+            border-right: 8px solid #D4AF37;
+            padding-right: 25px;
+        }
+
+        .slide-container p,
+        .slide-container li {
+            color: #E2E8F0;
+            font-size: 22px;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        .accent-gold {
+            color: #D4AF37;
+        }
+
+        /* 3. التخطيطات وتوزيع العناصر */
+        .title-layout {
+            text-align: center;
+        }
+
+        .title-layout h1 {
+            font-size: 85px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .title-layout .subtitle {
+            font-size: 32px;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .content-area {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .image-wrapper {
+            border-radius: 16px;
+            height: 420px;
+            overflow: hidden;
+            width: 100%;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .image-wrapper img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .tiled-content {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .tile {
+            background-color: #1A0F3D;
+            border-radius: 16px;
+            border: 1px solid #361a6b;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .tile .icon {
+            color: #D4AF37;
+            font-size: 55px;
+            margin-bottom: 25px;
+        }
+
+        .tile-link {
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+        }
+
+        .tile-link .tile {
+            width: 100%;
+        }
+
+        .highlight-numbers-layout {
+            align-items: center;
+            display: flex;
+            gap: 60px;
+        }
+
+        .number {
+            color: #D4AF37;
+            font-size: 180px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* تخطيط الشريحة الممتدة */
+        .slide-container.bleed-image-layout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            padding: 0;
+            align-items: start;
+        }
+
+        .bleed-text-side {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .bleed-image-side {
+            height: 720px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* الأزرار التفاعلية */
+        .cta-button {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8416 100%);
+            color: #080314;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 26px;
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .qa-layout {
+            text-align: center;
+            width: 100%;
+        }
+
+        .qa-layout h2 {
+            font-size: 65px;
+            margin-bottom: 30px;
+            color: #D4AF37;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" id="slide1">
+        <div class="title-layout">
+            <h1>GAME MAKERS</h1>
+            <p class="subtitle">VIRTUAL SCHOOL</p>
+            <div style="width: 150px; height: 4px; background: #D4AF37; margin: 30px auto;"></div>
+            <p style="font-size: 24px; color: #E2E8F0;">الأكاديمية الافتراضية الرائدة لتدريب المتداولين في أسواق المال</p>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title">تعريف بالمدرسة وفلسفتها</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>تعتبر <strong>Game Makers</strong> وجهة تعليمية متكاملة تهدف إلى بناء عقلية المتداول المحترف. نحن لا نكتفي بتدريس الاستراتيجيات، بل نركز على فهم "لغة السوق" وكيفية التعامل مع التحركات المؤسسية الكبرى.</p>
+                    <p style="margin-top: 25px;">مهمتنا هي تمكين الطلاب من الأدوات والخبرات اللازمة للانتقال من الهواية إلى الاحتراف المستدام في الأسواق العالمية بنظام وانضباط تام.</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="https://placehold.co/640x420/1A0F3D/D4AF37?text=Trading+Office&font=raleway" alt="Luxurious Trading Office Environment">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">البيئة التعليمية والتقنية</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-desktop"></i></div>
+                    <h3>منصة افتراضية متطورة</h3>
+                    <p>توفير بيئة دراسية رقمية فخمة تسهل التفاعل ومتابعة المناهج الدراسية من أي مكان في العالم.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>جداول دراسية منظمة</h3>
+                    <p>نظام أكاديمي يبتعد عن العشوائية، حيث يتم تقديم الدروس في أيام محددة لضمان استيعاب المادة والتطبيق الفعلي.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">Level 1: حجر الأساس</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div style="text-align: center;">
+                    <div class="image-wrapper" style="border-radius: 50%; width: 400px; height: 400px; margin: 0 auto;">
+                        <img src="https://placehold.co/400x400/1A0F3D/D4AF37?text=Candlestick+Chart&font=raleway" alt="Professional Candlestick Chart Close-up">
+                    </div>
+                </div>
+                <div>
+                    <p>المرحلة التأسيسية الهامة التي تنقل الطالب من الصفر إلى فهم أبجديات الرسوم البيانية. نركز في هذه المرحلة على:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check-circle accent-gold" style="margin-left: 15px;"></i> فهم ماهية وسيكولوجية الشموع اليابانية.</li>
+                        <li><i class="fas fa-check-circle accent-gold" style="margin-left: 15px;"></i> إعداد وتهيئة منصات التحليل العالمية باحترافية.</li>
+                        <li><i class="fas fa-check-circle accent-gold" style="margin-left: 15px;"></i> المبادئ الأولية لقراءة اتجاهات الشارت.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">Level 2: تحليل هيكلية السوق</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>الغوص في أعماق حركات الأسعار وفهم بنية الأسواق المتقدمة. يتعلم الطالب بالتفصيل خلال هذا المستوى:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-chart-area accent-gold" style="margin-left: 15px;"></i> تحديد كسر البنية الحقيقي وتغير اتجاه الشارت.</li>
+                        <li><i class="fas fa-chart-area accent-gold" style="margin-left: 15px;"></i> تحديد مناطق العرض والطلب الجوهرية والقوية.</li>
+                        <li><i class="fas fa-chart-area accent-gold" style="margin-left: 15px;"></i> دمج الفريمات الزمنية المختلفة لاقتناص الفرص.</li>
+                    </ul>
+                </div>
+                <div class="image-wrapper">
+                    <img src="https://placehold.co/640x420/1A0F3D/D4AF37?text=Market+Structure&font=raleway" alt="Abstract Gold Financial Charts">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container bleed-image-layout" id="slide6">
+        <div class="bleed-text-side">
+            <h2 class="slide-title">Level 3: التحليل المؤسسي</h2>
+            <div class="content-area">
+                <p>مرحلة متقدمة جداً مخصصة لفهم آليات تدفق السيولة والتحركات المؤسسية الكبرى. يتعلم الطالب في هذا المستوى تتبع البصمة الرقمية التي تتركها البنوك والمحافظ الضخمة خلفها على الرسوم البيانية، مما يمنحه دقة متناهية ونسب نجاح مرتفعة عند الدخول والخروج من الصفقات.</p>
+            </div>
+        </div>
+        <div class="image-container">
+            <img class="bleed-image-side" src="https://placehold.co/640x720/1A0F3D/D4AF37?text=Institutional+Analysis&font=raleway" alt="Professional Learning Environment">
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title">Trader Community: مجتمع النخبة</h2>
+        <div class="content-area">
+            <div class="highlight-numbers-layout">
+                <div class="number">24/7</div>
+                <div>
+                    <h3>بيئة تفاعلية وتبادل مستمر</h3>
+                    <p>الانتقال الفعلي إلى المجتمع التفاعلي المخصص للطلاب، حيث يتم تبادل التحليلات والآراء اليومية ومناقشة حركة السوق الحية مع الزملاء. الهدف الأساسي هنا هو تعزيز روح العمل الجماعي وتطوير مهارة القراءة اللحظية للشارت.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide8">
+        <h2 class="slide-title">Level Up: قمة الاحتراف</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div style="text-align: center;">
+                    <i class="fa-solid fa-graduation-cap" style="font-size: 220px; color: #D4AF37;"></i>
+                </div>
+                <div>
+                    <h3 class="accent-gold" style="font-size: 32px; margin-bottom: 20px;">الاستقلال المالي والتطوير الشامل</h3>
+                    <p>المرحلة الختامية والأرقى في الأكاديمية، ونركز فيها بالكامل على صقل الجانب النفسي والسلوكي للمتداول، وإدارة المحافظ المالية الكبيرة، بالإضافة إلى تأهيل الطلاب لاجتياز اختبارات التمويل العالمية بنجاح وثبات وبناء استراتيجيات خاصة ومستقلة.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title">تواجدنا الرقمي منصات السوشال ميديا</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <a href="https://www.tiktok.com/@gmvs_official?is_from_webapp=1&sender_device=pc" target="_blank" class="tile-link">
+                    <div class="tile">
+                        <div class="icon"><i class="fab fa-tiktok"></i></div>
+                        <h3>TikTok</h3>
+                        <p>المقاطع التعليمية والمراجعات الفنية الدورية لحركات الأسواق.</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/gamemakers.official7?igsh=MWZvdXk5N2szcnFvbg==" target="_blank" class="tile-link">
+                    <div class="tile">
+                        <div class="icon"><i class="fab fa-instagram"></i></div>
+                        <h3>Instagram</h3>
+                        <p>كواليس المجتمع، النصائح السريعة، والتحديثات اليومية البصرية.</p>
+                    </div>
+                </a>
+                <div class="tile">
+                    <div class="icon"><i class="fab fa-twitter"></i></div>
+                    <h3>X (Twitter)</h3>
+                    <p>تغطية الأخبار الاقتصادية الهامة والتحليلات الفنية السريعة.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide10">
+        <div class="qa-layout">
+            <h2>مرحباً بك في عالم الاحتراف المالي</h2>
+            <p style="font-size: 26px; margin-bottom: 40px;">خطوتك الحقيقية والملهمة لتغيير مسارك في أسواق المال تبدأ من هنا.</p>
+            
+            <div style="background: #1A0F3D; padding: 40px; border-radius: 20px; border: 1px solid #D4AF37; display: inline-block;">
+                <h3 style="margin-bottom: 20px; font-size: 35px;"><i class="fab fa-telegram accent-gold"></i> المجموعة الرسمية على تيليجرام</h3>
+                <p style="font-size: 45px; font-weight: 900; color: #D4AF37; margin: 0; letter-spacing: 1px;">@GM_VS</p>
+            </div>
+            
+            <br>
+            <a href="https://t.me/GM_VS" class="cta-button" target="_blank">
+                <i class="fas fa-external-link-alt"></i> اضغط هنا للانضمام إلى الغروب الآن
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
